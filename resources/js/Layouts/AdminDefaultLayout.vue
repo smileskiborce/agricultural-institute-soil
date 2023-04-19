@@ -72,8 +72,9 @@
                                 aria-expanded="false"
                             >
                                 <span class="text-white me-1" >
-<!--                                    {{ user.name }}-->
+                                    {{ user.name }}
                                 </span>
+
                                 <div
                                     class="rounded-circle me-2 bg-white d-flex align-items-center justify-content-center"
                                     style="width: 2rem; height: 2rem"
@@ -119,8 +120,10 @@ export default {
 </script>
 <script setup>
 import {Inertia} from "@inertiajs/inertia";
-import {inject, onBeforeUnmount, ref} from "vue";
+import {computed, inject, onBeforeUnmount, ref} from "vue";
 import {useBase} from "../Mixins/useBase";
+import {usePage} from "@inertiajs/vue3";
+
 // import DeleteModal from "../Modals/Base/DeleteModal.vue";
 // import CustomAlert from "../Components/CustomAlert.vue";
 
@@ -133,8 +136,6 @@ defineProps({
 
 const route = inject("route");
 
-const {can,user} = useBase();
-
 const sidebar = ref(false);
 const menuOptions = ref([
     {
@@ -144,7 +145,7 @@ const menuOptions = ref([
         can: true,
     },
 ]);
-
+const {can,user} =useBase();
 const inertiaOnEvent = Inertia.on("start", () => {
     sidebar.value = false;
 });
