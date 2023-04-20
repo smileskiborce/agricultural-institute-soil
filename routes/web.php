@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PdfController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
@@ -32,4 +33,5 @@ Route::middleware('auth')->group(function () {
     Route::resource('roles', RoleController::class)->except('show');
     Route::resource('clients', ClientController::class)->except('create', 'edit', 'show');
 
+    Route::get('request',[PdfController::class,'request'])->name('request');
 });
