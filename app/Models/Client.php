@@ -21,9 +21,5 @@ class Client extends Model
         'email',
     ];
 
-    public function analysesRequests(): HasMany
-    {
-        return $this->hasMany(AnalyseRequest::class);
-    }
 
 }
