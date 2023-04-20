@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Inertia\Controller;
 use Inertia\Inertia;
 use Inertia\Response;
 

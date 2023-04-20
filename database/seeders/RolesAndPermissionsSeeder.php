@@ -32,6 +32,18 @@ class RolesAndPermissionsSeeder extends Seeder
             ]);
         });
 
+        // FOR CLIENTS
+        collect([
+            \App\Enums\Permission::CREATE_CLIENT,
+            \App\Enums\Permission::EDIT_CLIENT,
+            \App\Enums\Permission::DELETE_CLIENT,
+            \App\Enums\Permission::VIEW_CLIENT,
+        ])->each(function ($permission) {
+            Permission::query()->firstOrCreate([
+                'name' => $permission,
+                'guard_name' => 'web',
+            ]);
+        });
 
         Role::query()->firstOrCreate([
             'name' => \App\Enums\Role::SUPER_ADMIN,

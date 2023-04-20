@@ -1,5 +1,6 @@
 import 'bootstrap'
 import './bootstrap';
+import moment from "moment";
 import '../js/scss/app/app.scss'
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
@@ -17,6 +18,7 @@ createInertiaApp({
             .use(plugin)
             .use(ZiggyVue, Ziggy)
             .component("Link",Link)
+            .provide("moment", moment)
             .mount(el);
     },
     progress: {

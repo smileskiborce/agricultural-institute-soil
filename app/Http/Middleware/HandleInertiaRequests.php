@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use Spatie\Permission\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
@@ -37,15 +38,30 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-
-
+        $user = auth()->user();
         return array_merge(parent::share($request), [
-            'user' => fn () => $request->user()
-                ? $request->user() : null,
-            'error' => fn () => $request->session()->get('error'),
-            'success' => fn () => $request->session()->get('success'),
-            'can' => fn () => [
-
+            'user' => $user,
+            'error' => fn() => $request->session()->get('error'),
+            'success' => fn() => $request->session()->get('success'),
+            'can' => fn() => [
+                'users' => [
+                    'viewAny' => $user?->can('viewAny', User::class),
+                    'create' => $user?->can('create', User::class),
+                    'update' => $user?->can('update', User::class),
+                    'delete' => $user?->can('delete', User::class),
+                ],
+                'roles' => [
+                    'viewAny' => $user?->can('viewAny', Role::class),
+                    'create' => $user?->can('create', Role::class),
+                    'update' => $user?->can('update', Role::class),
+                    'delete' => $user?->can('delete', Role::class),
+                ],
+                'clients' => [
+                    'viewAny' => $user?->can('viewAny', Role::class),
+                    'create' => $user?->can('create', Role::class),
+                    'update' => $user?->can('update', Role::class),
+                    'delete' => $user?->can('delete', Role::class),
+                ],
             ],
         ]);
     }

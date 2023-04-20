@@ -135,6 +135,7 @@ defineProps({
 });
 
 const route = inject("route");
+const {can,user} =useBase();
 
 const sidebar = ref(false);
 const menuOptions = ref([
@@ -144,8 +145,25 @@ const menuOptions = ref([
         link: "home",
         can: true,
     },
+    {
+        name: "Корисници",
+        icon: "fa-users",
+        link: "users.index",
+        can: can.value.users.viewAny,
+    },
+    {
+        name: "Улоги",
+        icon: "fa-users",
+        link: "roles.index",
+        can: can.value.roles.viewAny,
+    },
+    {
+        name: "Комитенти",
+        icon: "fa-users",
+        link: "clients.index",
+        can: can.value.clients.viewAny,
+    },
 ]);
-const {can,user} =useBase();
 const inertiaOnEvent = Inertia.on("start", () => {
     sidebar.value = false;
 });

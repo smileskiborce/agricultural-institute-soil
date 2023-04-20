@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -24,4 +27,9 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/', [HomeController::class, 'home'])->name('home');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    Route::resource('users', UserController::class)->except('create', 'edit', 'show');
+    Route::resource('roles', RoleController::class)->except('show');
+    Route::resource('clients', ClientController::class)->except('create', 'edit', 'show');
+
 });

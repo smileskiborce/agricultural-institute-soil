@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HasTransliterateSearch;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,9 +15,15 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens,HasFactory, Notifiable,HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, HasTransliterateSearch;
 
 
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'username',
+    ];
     /**
      * The attributes that are mass assignable.
      *
@@ -50,7 +57,7 @@ class User extends Authenticatable
     public function password(): Attribute
     {
         return Attribute::make(
-            set: fn ($value) => bcrypt($value)
+            set: fn($value) => bcrypt($value)
         );
     }
 }
